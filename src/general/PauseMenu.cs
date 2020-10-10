@@ -19,6 +19,9 @@ public class PauseMenu : Control
     public NodePath LoadMenuPath;
 
     [Export]
+    public NodePath OptionsMenuPath;
+
+    [Export]
     public NodePath SaveMenuPath;
 
     [Export]
@@ -27,6 +30,7 @@ public class PauseMenu : Control
     private Control primaryMenu;
     private HelpScreen helpScreen;
     private Control loadMenu;
+    private OptionsMenu optionsMenu;
     private NewSaveMenu saveMenu;
 
     [Signal]
@@ -46,10 +50,9 @@ public class PauseMenu : Control
     public delegate void MakeSave(string name);
 
     /// <summary>
-    ///   The tutorial state reported by the game state, this is needed to not allow pausing while exclusive tutorial
-    ///   is open. As well as to disable tutorials from the in-game options menu
+    ///   The GameProperties object holding settings and state for the current game session.
     /// </summary>
-    public TutorialState GameTutorialState { get; set; }
+    public GameProperties GameProperties { get; set; }
 
     public override void _EnterTree()
     {
@@ -62,6 +65,7 @@ public class PauseMenu : Control
     {
         primaryMenu = GetNode<Control>(PrimaryMenuPath);
         loadMenu = GetNode<Control>(LoadMenuPath);
+        optionsMenu = GetNode<OptionsMenu>(OptionsMenuPath);
         saveMenu = GetNode<NewSaveMenu>(SaveMenuPath);
     }
 
@@ -75,9 +79,17 @@ public class PauseMenu : Control
 
                 EmitSignal(nameof(OnClosed));
             }
-            else if (GameTutorialState == null || !GameTutorialState.ExclusiveTutorialActive())
+            else if (NoExclusiveTutorialActive())
             {
                 EmitSignal(nameof(OnOpenWithKeyPress));
+            }
+        }
+        else if (@event.IsActionPressed("help"))
+        {
+            if (NoExclusiveTutorialActive())
+            {
+                EmitSignal(nameof(OnOpenWithKeyPress));
+                ShowHelpScreen();
             }
         }
     }
@@ -86,6 +98,11 @@ public class PauseMenu : Control
     {
         SetActiveMenu("help");
         helpScreen.RandomizeEasterEgg();
+    }
+
+    private bool NoExclusiveTutorialActive()
+    {
+        return GameProperties.TutorialState == null || !GameProperties.TutorialState.ExclusiveTutorialActive();
     }
 
     private void ClosePressed()
@@ -98,10 +115,8 @@ public class PauseMenu : Control
     {
         GUICommon.Instance.PlayButtonPressSound();
 
-        // Unpause the game as well as close the pause menu
+        // Unpause the game
         GetTree().Paused = false;
-
-        EmitSignal(nameof(OnClosed));
 
         TransitionManager.Instance.AddScreenFade(Fade.FadeType.FadeIn, 0.3f, false);
         TransitionManager.Instance.StartTransitions(this, nameof(OnSwitchToMenu));
@@ -142,6 +157,20 @@ public class PauseMenu : Control
         SetActiveMenu("primary");
     }
 
+    private void OpenOptionsPressed()
+    {
+        GUICommon.Instance.PlayButtonPressSound();
+
+        SetActiveMenu("options");
+    }
+
+    private void CloseOptionsPressed()
+    {
+        GUICommon.Instance.PlayButtonPressSound();
+
+        SetActiveMenu("primary");
+    }
+
     private void OpenSavePressed()
     {
         GUICommon.Instance.PlayButtonPressSound();
@@ -170,6 +199,7 @@ public class PauseMenu : Control
         helpScreen.Hide();
         primaryMenu.Hide();
         loadMenu.Hide();
+        optionsMenu.Hide();
         saveMenu.Hide();
 
         switch (menu)
@@ -182,6 +212,9 @@ public class PauseMenu : Control
                 break;
             case "load":
                 loadMenu.Show();
+                break;
+            case "options":
+                optionsMenu.OpenFromInGame(GameProperties);
                 break;
             case "save":
                 saveMenu.Show();

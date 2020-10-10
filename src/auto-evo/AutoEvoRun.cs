@@ -226,7 +226,7 @@ public class AutoEvoRun
 
                 try
                 {
-                    int currentPop = results.GetPopulationInPatch(entry.Species, patch);
+                    long currentPop = results.GetPopulationInPatch(entry.Species, currentPatch);
 
                     results.AddPopulationResultForSpecies(
                         entry.Species, patch, (int)(currentPop * entry.Coefficient) + entry.Constant);
@@ -259,7 +259,7 @@ public class AutoEvoRun
     /// <returns>The summary of external effects.</returns>
     public string MakeSummaryOfExternalEffects()
     {
-        var combinedExternalEffects = new Dictionary<Tuple<Species, string>, int>();
+        var combinedExternalEffects = new Dictionary<Tuple<Species, string>, long>();
 
         foreach (var entry in ExternalEffects)
         {
@@ -268,7 +268,7 @@ public class AutoEvoRun
             if (combinedExternalEffects.ContainsKey(key))
             {
                 combinedExternalEffects[key] +=
-                    entry.Constant + (int)(entry.Species.Population * entry.Coefficient) - entry.Species.Population;
+                    entry.Constant + (long)(entry.Species.Population * entry.Coefficient) - entry.Species.Population;
             }
             else
             {

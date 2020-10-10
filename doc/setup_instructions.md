@@ -28,7 +28,7 @@ issues please don't hesitate to bring them up.
 Godot mono version
 ------------------
 
-The currently used Godot version is __3.2.2 mono__. The regular version
+The currently used Godot version is __3.2.3 mono__. The regular version
 will not work. You can download Godot here: https://godotengine.org/download/
 if it is still the latest stable version. If a new version of Godot has
 been released but Thrive has not been updated yet, you need to look
@@ -140,7 +140,7 @@ Go back to the main download page and find
 _All .NET Framework Downloads_ Choose version 4.7 and select the Developer Pack.
 
 Open Visual Studio Code and go to the Extensions tab. Get the extensions
-_C#_, _Mono Debug_, and _godot-tools_.
+_C#_, _Mono Debug_, and _C# Tools for Godot_.
 
 Open up a Project in Godot. On the top toolbar, go to Editor -> Editor Settings.
 Scroll down on the left window until you find Mono. Click on Editor and set
@@ -254,6 +254,10 @@ broken releases. Like this:
 
 <img src="https://randomthrivefiles.b-cdn.net/setup_instructions/images/godot_build_tool_option_linux.png" alt="godot linux build tool" width="550px">
 
+Even if you do not use the Godot script editor, Godot automatically opens some files and replaces the spaces with tabs.
+To stop Godot from messing with you files, go to Text Editor -> Indent and set Type to spaces
+
+<img src="https://randomthrivefiles.b-cdn.net/setup_instructions/images/godot_editor_use_spaces.png" alt="set intend to spaces" width="550px">
 
 ### C# packages
 
