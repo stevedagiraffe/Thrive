@@ -209,19 +209,20 @@ public class AutoEvoRun
     {
         if (ExternalEffects.Count > 0)
         {
-            Patch patch;
+            // Effects are applied in the current patch
+            Patch currentPatch;
 
             foreach (var entry in ExternalEffects)
             {
                 // Effects are defaulted to the current patch unless specified otherwise via ExternalEffect parameters
-                // Currently a patch index of 100 just means to use the current patch
+                // A patch index of 100 just means to use the current patch
                 if (entry.PatchIndex == 100)
                 {
-                    patch = parameters.World.Map.CurrentPatch;
+                    currentPatch = parameters.World.Map.CurrentPatch;
                 }
                 else
                 {
-                    patch = parameters.World.Map.Patches[entry.PatchIndex];
+                    currentPatch = parameters.World.Map.Patches[entry.PatchIndex];
                 }
 
                 try
@@ -229,7 +230,7 @@ public class AutoEvoRun
                     long currentPop = results.GetPopulationInPatch(entry.Species, currentPatch);
 
                     results.AddPopulationResultForSpecies(
-                        entry.Species, patch, (int)(currentPop * entry.Coefficient) + entry.Constant);
+                        entry.Species, currentPatch, (int)(currentPop * entry.Coefficient) + entry.Constant);
                 }
                 catch (Exception e)
                 {

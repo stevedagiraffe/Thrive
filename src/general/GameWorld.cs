@@ -225,6 +225,7 @@ public class GameWorld
     ///   If true applied immediately. Should only be used for the player dying
     /// </param>
     /// <param name="coefficient">Change amount (coefficient part)</param>
+    /// <param name="patchIndex">The index of the patch to affect</param>
     public void AlterSpeciesPopulation(Species species, int constant, string description,
         bool immediate = false, float coefficient = 1, int patchIndex = 100)
     {

@@ -513,8 +513,8 @@ public class MicrobeStage : Node, ILoadableGameState
             // Subtract all but 1 cell from the current patch's population
             if (currentPatchPopulation > 1)
             {
-                GameWorld.AlterSpeciesPopulation(playerSpecies, 1 - currentPatchPopulation, "player died", true, 1);
-                remainingKills -= currentPatchPopulation - 1;
+                GameWorld.AlterSpeciesPopulation(playerSpecies, (int)(1 - currentPatchPopulation), "player died", true, 1);
+                remainingKills -= (int)currentPatchPopulation - 1;
             }
 
             int availablePatchesCount = 0;
@@ -579,7 +579,7 @@ public class MicrobeStage : Node, ILoadableGameState
                     // less than or equal to 1. If it does then modify the "amount to take" appropriately.
                     if (amountToTake >= currentPatchPopulation - 1)
                     {
-                        amountToTake = currentPatchPopulation - 1;
+                        amountToTake = (int)(currentPatchPopulation - 1);
                     }
 
                     GameWorld.AlterSpeciesPopulation(playerSpecies, -amountToTake, "player died", true, 1, patch.Value.ID);
