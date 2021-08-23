@@ -2115,6 +2115,11 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         var osmoregulationCost = (HexCount * Species.MembraneType.OsmoregulationFactor *
             Constants.ATP_COST_FOR_OSMOREGULATION) * delta;
 
+        if(Colony != null)
+        {
+            osmoregulationCost *= 10 / (10 + Colony.ColonyMembers.Count);
+        }
+
         Compounds.TakeCompound(atp, osmoregulationCost);
     }
 
