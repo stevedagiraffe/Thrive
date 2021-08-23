@@ -293,6 +293,17 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     {
         get
         {
+            if (Colony != null)
+            {
+                var retval = 0.0f;
+                foreach (Microbe microbe in Colony.ColonyMembers)
+                {
+                    retval += microbe.HexCount;
+                }
+
+                return retval;
+            }
+
             if (Species.IsBacteria)
             {
                 return HexCount * 0.5f;
