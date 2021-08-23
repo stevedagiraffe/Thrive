@@ -1680,7 +1680,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
                 Hitpoints += Constants.REGENERATION_RATE * delta;
                 if (Colony != null)
                 {
-                    Hitpoints += Constants.REGENERATION_RATE * delta * (0.01f * Colony.ColonyMembers.Count);
+                    Hitpoints += Constants.REGENERATION_RATE * delta * (0.2f * Colony.ColonyMembers.Count);
                 }
                 if (Hitpoints > MaxHitpoints)
                 {
