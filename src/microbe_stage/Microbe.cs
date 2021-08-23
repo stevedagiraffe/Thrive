@@ -1678,6 +1678,10 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
             if (Compounds.GetCompoundAmount(atp) >= 1.0f)
             {
                 Hitpoints += Constants.REGENERATION_RATE * delta;
+                if (Colony != null)
+                {
+                    Hitpoints += Constants.REGENERATION_RATE * delta * (0.01f * Colony.ColonyMembers.Count);
+                }
                 if (Hitpoints > MaxHitpoints)
                 {
                     Hitpoints = MaxHitpoints;
