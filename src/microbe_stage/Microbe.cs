@@ -1393,8 +1393,9 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     public override void _IntegrateForces(PhysicsDirectBodyState physicsState)
     {
         // TODO: should movement also be applied here?
+        // physics run at a different hz than _Process, put it all in here
 
-        physicsState.Transform = GetNewPhysicsRotation(physicsState.Transform);
+        this.LookFollow(physicsState, GlobalTransform, LookAtPoint);
     }
 
     /// <summary>
