@@ -46,7 +46,6 @@ public static class RigidBodyHelpers
     /// </summary>
     public static Transform LookSlerp(this RigidBody body, PhysicsDirectBodyState state, Vector3 targetPoint)
     {
-        Vector3 up = new Vector3(0, 1, 0);
         Transform target = state.Transform.LookingAt(targetPoint, new Vector3(0, 1, 0));
 
         // Need to manually normalize everything, otherwise the slerp fails
