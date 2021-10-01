@@ -50,8 +50,8 @@ public static class SpawnHelpers
         // cell is not AI controlled it is the player's cell
         microbe.Init(cloudSystem, currentGame, !aiControlled);
 
-        worldRoot.AddChild(microbe);
         microbe.Translation = location;
+        worldRoot.AddChild(microbe);
 
         microbe.AddToGroup(Constants.AI_TAG_MICROBE);
         microbe.AddToGroup(Constants.PROCESS_GROUP);
@@ -197,12 +197,12 @@ public static class SpawnHelpers
         chunk.Init(chunkType, cloudSystem, selectedMesh.SceneModelPath);
         chunk.UsesDespawnTimer = !chunkType.Dissolves;
 
-        worldNode.AddChild(chunk);
-
         // Chunk is spawned with random rotation
         chunk.Transform = new Transform(new Quat(
                 new Vector3(0, 1, 1).Normalized(), 2 * Mathf.Pi * (float)random.NextDouble()),
             location);
+
+        worldNode.AddChild(chunk);
 
         chunk.GetNode<Spatial>("NodeToScale").Scale = new Vector3(chunkType.ChunkScale, chunkType.ChunkScale,
             chunkType.ChunkScale);
@@ -245,8 +245,8 @@ public static class SpawnHelpers
         agent.TimeToLiveRemaining = lifetime;
         agent.Emitter = new EntityReference<IEntity>(emitter);
 
-        worldRoot.AddChild(agent);
         agent.Translation = location + (direction * 1.5f);
+        worldRoot.AddChild(agent);
 
         agent.ApplyCentralImpulse(normalizedDirection *
             Constants.AGENT_EMISSION_IMPULSE_STRENGTH);
