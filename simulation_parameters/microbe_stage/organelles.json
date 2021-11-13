@@ -446,7 +446,7 @@
             }
         },
         "prokaryoteChance": 0,
-        "chanceToCreate": 1,
+        "chanceToCreate": 0,
         "mass": 0.1,
         "displayScene": "res://assets/models/organelles/Oxytoxy.tscn",
         "name": "TOXIN_VACUOLE",
