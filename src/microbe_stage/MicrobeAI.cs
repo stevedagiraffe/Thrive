@@ -43,7 +43,7 @@ public class MicrobeAI
     private float swarmMinRange = 0.0f;
 
     [JsonProperty]
-    private float swarmMaxRange = 0.0f;
+    private float swarmMaxRange = 2000.0f;
 
     /// <summary>
     ///   Stores the value of microbe.totalAbsorbedCompound at tick t-1 before it is cleared and updated at tick t.
@@ -163,7 +163,7 @@ public class MicrobeAI
         if (SpeciesActivity > Constants.MAX_SPECIES_ACTIVITY / 10)
         {
             RunAndTumble(random);
-            if (swarmMaxRange > 0.0f)
+            if (swarmMaxRange < 2000.0f)
             {
                 foreach (var otherMicrobe in data.AllMicrobes)
                 {
@@ -176,6 +176,7 @@ public class MicrobeAI
                         if (DistanceFromMe(otherMicrobe.GlobalTransform.origin) < swarmMaxRange &&
                             DistanceFromMe(otherMicrobe.GlobalTransform.origin) > swarmMinRange)
                         {
+                            swarmMaxRange += 10.0f;
                             microbe.LookAtPoint = otherMicrobe.GlobalTransform.origin;
                             SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
                         }
