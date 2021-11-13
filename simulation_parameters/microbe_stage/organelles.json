@@ -535,7 +535,8 @@
             }
         ],
         "processes": {
-            "glycolysis_cytoplasm": 1
+            "glycolysis_cytoplasm": 1,
+            "phosphate_fabrication":  1
         },
         "components": {
             "storage": {

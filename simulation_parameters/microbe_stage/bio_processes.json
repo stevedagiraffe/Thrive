@@ -128,5 +128,12 @@
         "outputs": {
             "atp": 2.5
         }
+    },
+    "phosphate_fabrication": {
+        "name": "Magic Phosphorous generation",
+        "inputs": {},
+        "outputs": {
+            "phosphates": 0.0001
+        }
     }
 }
