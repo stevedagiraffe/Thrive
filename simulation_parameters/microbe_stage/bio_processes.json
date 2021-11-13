@@ -130,10 +130,10 @@
         }
     },
     "phosphate_fabrication": {
-        "name": "Magic Phosphorous generation",
+        "name": "Magic Phosphate generation",
         "inputs": {},
         "outputs": {
-            "phosphates": 0.0001
+            "phosphates": 0.005
         }
     }
 }
