@@ -200,7 +200,7 @@ msgstr ""
 "\n"
 "Vacuole: Stores 15 collected compounds\n"
 "\n"
-"Toxin Vacuoles: Produces toxins (called [thrive:compound type=\"oxytoxy\"]"
+"Kindness Vacuoles: Produces pheromones (called [thrive:compound type=\"oxytoxy\"]"
 "[/thrive:compound])"
 
 #: ../simulation_parameters/common/help_texts.json:74
@@ -589,7 +589,7 @@ msgstr "Photosynthesis"
 #: ../simulation_parameters/microbe_stage/bio_processes.json:41
 #: ../simulation_parameters/microbe_stage/bio_processes.json:51
 msgid "OXYTOXY_SYNTHESIS"
-msgstr "OxyToxy Synthesis"
+msgstr "CuddleToxy Synthesis"
 
 #: ../simulation_parameters/microbe_stage/bio_processes.json:61
 #: ../simulation_parameters/microbe_stage/bio_processes.json:71
@@ -737,7 +737,7 @@ msgstr "Glucose"
 #: ../simulation_parameters/microbe_stage/compounds.json:73
 #: ../src/microbe_stage/MicrobeStage.tscn:1584
 msgid "OXYTOXY_NT"
-msgstr "OxyToxy NT"
+msgstr "CuddleToxy NT"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:87
 #: ../src/microbe_stage/MicrobeStage.tscn:1452
