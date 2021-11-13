@@ -434,6 +434,11 @@ public partial class Microbe
         return result;
     }
 
+    public void ExperienceLove(float magnitude)
+    {
+        ai.applySwarmInstinct(magnitude);
+    }
+    
     private void HandleCompoundAbsorbing(float delta)
     {
         // max here buffs compound absorbing for the smallest cells

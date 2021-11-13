@@ -39,6 +39,12 @@ public class MicrobeAI
     [JsonProperty]
     private float pursuitThreshold;
 
+    [JsonProperty]
+    private float swarmMinRange = 0.0f;
+
+    [JsonProperty]
+    private float swarmMaxRange = 0.0f;
+
     /// <summary>
     ///   Stores the value of microbe.totalAbsorbedCompound at tick t-1 before it is cleared and updated at tick t.
     ///   Used for compounds gradient computation.
@@ -107,6 +113,12 @@ public class MicrobeAI
         microbe.TotalAbsorbedCompounds.Clear();
     }
 
+    public void applySwarmInstinct(float magnitude)
+    {
+        swarmMaxRange = 800.0f;
+        swarmMinRange = 200.0f;
+    }
+
     private void ChooseActions(Random random, MicrobeAICommonData data)
     {
         if (microbe.IsBeingEngulfed)
@@ -151,6 +163,26 @@ public class MicrobeAI
         if (SpeciesActivity > Constants.MAX_SPECIES_ACTIVITY / 10)
         {
             RunAndTumble(random);
+            if (swarmMaxRange > 0.0f)
+            {
+                foreach (var otherMicrobe in data.AllMicrobes)
+                {
+                    if (otherMicrobe == microbe)
+                        continue;
+
+                    // Based on species fear, threshold to be afraid ranges from 0.8 to 1.8 microbe size.
+                    if (otherMicrobe.Species == microbe.Species && otherMicrobe != microbe && !otherMicrobe.Dead)
+                    {
+                        if (DistanceFromMe(otherMicrobe.GlobalTransform.origin) < swarmMaxRange &&
+                            DistanceFromMe(otherMicrobe.GlobalTransform.origin) > swarmMinRange)
+                        {
+                            microbe.LookAtPoint = otherMicrobe.GlobalTransform.origin;
+                            SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
+                        }
+                    }
+                }
+            }
+            
         }
         else
         {
@@ -579,7 +611,7 @@ public class MicrobeAI
         return ourStat <= random.Next(0.0f, dc);
     }
 
-    private void DebugFlash()
+    public void DebugFlash()
     {
         microbe.Flash(1.0f, new Color(255.0f, 0.0f, 0.0f));
     }
