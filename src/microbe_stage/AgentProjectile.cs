@@ -55,8 +55,14 @@ public class AgentProjectile : RigidBody, ITimedLife
         {
             // If more stuff needs to be damaged we
             // could make an IAgentDamageable interface.
-            //microbe.GetMicrobeFromShape(bodyShape).Damage(Constants.OXYTOXY_DAMAGE * Amount, Properties.AgentType);
-            microbe.ExperienceLove(Amount);
+            if (microbe.Species != Properties.Species)
+            {
+                microbe.GetMicrobeFromShape(bodyShape).Damage(Constants.OXYTOXY_DAMAGE * Amount, Properties.AgentType);
+            }
+            else
+            {
+                microbe.ExperienceLove(Amount);
+            }
         }
 
         if (FadeTimeRemaining == null)

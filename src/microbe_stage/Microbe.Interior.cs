@@ -436,7 +436,10 @@ public partial class Microbe
 
     public void ExperienceLove(float magnitude)
     {
-        ai.applySwarmInstinct(magnitude);
+        if (ai != null)
+        {
+            ai.applySwarmInstinct(magnitude);
+        }
     }
     
     private void HandleCompoundAbsorbing(float delta)

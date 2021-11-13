@@ -115,8 +115,8 @@ public class MicrobeAI
 
     public void applySwarmInstinct(float magnitude)
     {
-        swarmMaxRange = 800.0f;
-        swarmMinRange = 200.0f;
+        swarmMaxRange = 1200.0f;
+        swarmMinRange = 800.0f;
     }
 
     private void ChooseActions(Random random, MicrobeAICommonData data)
