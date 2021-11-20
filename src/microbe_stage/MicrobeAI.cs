@@ -516,10 +516,14 @@ public class MicrobeAI
 
     private void Swarm(Microbe friend)
     {
-        // Every time I need to change direction to keep up with you, I'm a little less enthusiastic to follow you more
-        swarmDistance += 10.0f;
-        microbe.LookAtPoint = friend.GlobalTransform.origin;
-        SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
+        // Don't turn if I'm already headed that way
+        if ((microbe.LookAtPoint - friend.GlobalTransform.origin).LengthSquared() > swarmDistance)
+        {
+            // Every time I need to change direction to keep up with you, I'm a little less enthusiastic to follow you more
+            swarmDistance += 10.0f;
+            microbe.LookAtPoint = friend.GlobalTransform.origin;
+            SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
+        }
     }
 
     /// <summary>
