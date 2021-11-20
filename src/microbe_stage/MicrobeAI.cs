@@ -116,16 +116,50 @@ public class MicrobeAI
     public void applySwarmInstinct(float magnitude)
     {
         swarmDetectDistance = 1000.0f + (400.0f * SpeciesOpportunism / Constants.MAX_SPECIES_OPPORTUNISM);
-        swarmDistance = 200.0f
+        swarmDistance = 400.0f
             - (400.0f * SpeciesFocus / Constants.MAX_SPECIES_FOCUS)
             + (400.0f * SpeciesActivity / Constants.MAX_SPECIES_ACTIVITY);
     }
 
     private void ChooseActions(Random random, MicrobeAICommonData data)
     {
-        // This may or may not be offset later in the function
-        swarmDetectDistance -= 10.0f;
+        if(ReactiveBehaviors(random, data))
+        {
+            swarmDetectDistance -= 10.0f;
+        }
+        else
+        {
+            // If I'm in the mood to swarm, look for someone to swarm with
+            if (swarmDetectDistance > swarmDistance)
+            {
+                var friend = BestPossibleFriend(data.AllMicrobes);
+                if (friend != null)
+                {
+                    Swarm(friend);
+                    return;
+                }
+            }
 
+            // Otherwise just wander around and look for compounds
+            if (SpeciesActivity > Constants.MAX_SPECIES_ACTIVITY / 10)
+            {
+                RunAndTumble(random);
+            }
+            else
+            {
+                // This organism is sessile, and will not act until the environment changes
+                SetMoveSpeed(0.0f);
+            }
+        }
+    }
+
+    /// <summary>
+    ///    Covers all more pressing behaviors in response to direct stimuli. Behaviors
+    ///    cascade in order of importance.
+    /// </summary>
+    /// <returns>true if the microbe reacted to something, false otherwise</returns>
+    private bool ReactiveBehaviors(Random random, MicrobeAICommonData data)
+    {
         if (microbe.IsBeingEngulfed)
         {
             SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
@@ -138,7 +172,7 @@ public class MicrobeAI
             DistanceFromMe(predator.Value) < (1500.0 * SpeciesFear / Constants.MAX_SPECIES_FEAR))
         {
             FleeFromPredators(random, predator.Value);
-            return;
+            return true;
         }
 
         // If there are no threats, look for a chunk to eat
@@ -148,7 +182,7 @@ public class MicrobeAI
             if (targetChunk.HasValue)
             {
                 PursueAndConsumeChunks(targetChunk.Value, random);
-                return;
+                return true;
             }
         }
 
@@ -161,33 +195,10 @@ public class MicrobeAI
             Vector3? prey = possiblePrey.GlobalTransform.origin;
 
             EngagePrey(prey.Value, random, engulfPrey);
-            return;
+            return true;
         }
 
-        // Nothing super important happened to me, so I'm interested in swarming again
-        swarmDetectDistance += 10.0f;
-
-        // If I'm in the mood to swarm, look for someone to swarm with
-        if (swarmDetectDistance > swarmDistance)
-        {
-            var friend = BestPossibleFriend(data.AllMicrobes);
-            if(friend != null)
-            {
-                Swarm(friend);
-                return;
-            }
-        }
-
-        // Otherwise just wander around and look for compounds
-        if (SpeciesActivity > Constants.MAX_SPECIES_ACTIVITY / 10)
-        {
-            RunAndTumble(random);
-        }
-        else
-        {
-            // This organism is sessile, and will not act until the environment changes
-            SetMoveSpeed(0.0f);
-        }
+        return false;
     }
 
     private FloatingChunk GetNearestChunkItem(List<FloatingChunk> allChunks, List<Microbe> allMicrobes, Random random)
