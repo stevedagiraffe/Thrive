@@ -116,7 +116,7 @@ public class MicrobeAI
     public void applySwarmInstinct(float magnitude)
     {
         swarmDetectDistance = 1000.0f + (400.0f * SpeciesOpportunism / Constants.MAX_SPECIES_OPPORTUNISM);
-        swarmDistance = 600.0f
+        swarmDistance = 200.0f
             - (400.0f * SpeciesFocus / Constants.MAX_SPECIES_FOCUS)
             + (400.0f * SpeciesActivity / Constants.MAX_SPECIES_ACTIVITY);
     }
