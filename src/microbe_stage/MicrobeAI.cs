@@ -116,7 +116,9 @@ public class MicrobeAI
     public void applySwarmInstinct(float magnitude)
     {
         swarmDetectDistance = 1000.0f + (400.0f * SpeciesOpportunism / Constants.MAX_SPECIES_OPPORTUNISM);
-        swarmDistance = 800.0f - (400.0f * SpeciesFocus / Constants.MAX_SPECIES_FOCUS) + (400.0f * SpeciesActivity / Constants.MAX_SPECIES_ACTIVITY);
+        swarmDistance = 600.0f
+            - (400.0f * SpeciesFocus / Constants.MAX_SPECIES_FOCUS)
+            + (400.0f * SpeciesActivity / Constants.MAX_SPECIES_ACTIVITY);
     }
 
     private void ChooseActions(Random random, MicrobeAICommonData data)
@@ -172,6 +174,7 @@ public class MicrobeAI
             if(friend != null)
             {
                 Swarm(friend);
+                return;
             }
         }
 
@@ -500,7 +503,8 @@ public class MicrobeAI
                 // "Can you see one possible optimization in the following code?" Dora the coder
                 if (DistanceFromMe(otherMicrobe.GlobalTransform.origin) < swarmDetectDistance &&
                     DistanceFromMe(otherMicrobe.GlobalTransform.origin) > swarmDistance &&
-                    (DistanceFromMe(otherMicrobe.GlobalTransform.origin) > DistanceFromMe(otherMicrobe.GlobalTransform.origin)))
+                    (bestMicrobe == null || (DistanceFromMe(otherMicrobe.GlobalTransform.origin) >
+                    DistanceFromMe(bestMicrobe.GlobalTransform.origin))))
                 {
                     bestMicrobe = otherMicrobe;
                 }
