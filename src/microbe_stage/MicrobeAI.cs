@@ -40,10 +40,10 @@ public class MicrobeAI
     private float pursuitThreshold;
 
     [JsonProperty]
-    private float swarmMinRange = 0.0f;
+    private float swarmDistance = 0.0f;
 
     [JsonProperty]
-    private float swarmMaxRange = 2000.0f;
+    private float swarmDetectDistance = 0.0f;
 
     /// <summary>
     ///   Stores the value of microbe.totalAbsorbedCompound at tick t-1 before it is cleared and updated at tick t.
@@ -115,12 +115,15 @@ public class MicrobeAI
 
     public void applySwarmInstinct(float magnitude)
     {
-        swarmMaxRange = 1200.0f;
-        swarmMinRange = 800.0f;
+        swarmDetectDistance = 1000.0f + (400.0f * SpeciesOpportunism / Constants.MAX_SPECIES_OPPORTUNISM);
+        swarmDistance = 800.0f - (400.0f * SpeciesFocus / Constants.MAX_SPECIES_FOCUS) + (400.0f * SpeciesActivity / Constants.MAX_SPECIES_ACTIVITY);
     }
 
     private void ChooseActions(Random random, MicrobeAICommonData data)
     {
+        // This may or may not be offset later in the function
+        swarmDetectDistance -= 10.0f;
+
         if (microbe.IsBeingEngulfed)
         {
             SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
@@ -159,31 +162,23 @@ public class MicrobeAI
             return;
         }
 
+        // Nothing super important happened to me, so I'm interested in swarming again
+        swarmDetectDistance += 10.0f;
+
+        // If I'm in the mood to swarm, look for someone to swarm with
+        if (swarmDetectDistance > swarmDistance)
+        {
+            var friend = BestPossibleFriend(data.AllMicrobes);
+            if(friend != null)
+            {
+                Swarm(friend);
+            }
+        }
+
         // Otherwise just wander around and look for compounds
         if (SpeciesActivity > Constants.MAX_SPECIES_ACTIVITY / 10)
         {
             RunAndTumble(random);
-            if (swarmMaxRange < 2000.0f)
-            {
-                foreach (var otherMicrobe in data.AllMicrobes)
-                {
-                    if (otherMicrobe == microbe)
-                        continue;
-
-                    // Based on species fear, threshold to be afraid ranges from 0.8 to 1.8 microbe size.
-                    if (otherMicrobe.Species == microbe.Species && otherMicrobe != microbe && !otherMicrobe.Dead)
-                    {
-                        if (DistanceFromMe(otherMicrobe.GlobalTransform.origin) < swarmMaxRange &&
-                            DistanceFromMe(otherMicrobe.GlobalTransform.origin) > swarmMinRange)
-                        {
-                            swarmMaxRange += 10.0f;
-                            microbe.LookAtPoint = otherMicrobe.GlobalTransform.origin;
-                            SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
-                        }
-                    }
-                }
-            }
-            
         }
         else
         {
@@ -489,6 +484,38 @@ public class MicrobeAI
                 MoveWithRandomTurn(0.0f, 1.5f, random);
             }
         }
+    }
+
+    private Microbe BestPossibleFriend(List<Microbe> allMicrobes)
+    {
+        Microbe bestMicrobe = null;
+        foreach (var otherMicrobe in allMicrobes)
+        {
+            // Don't swarm with yourself; that's gross
+            if (otherMicrobe == microbe)
+                continue;
+
+            if (otherMicrobe.Species == microbe.Species && otherMicrobe != microbe && !otherMicrobe.Dead)
+            {
+                // "Can you see one possible optimization in the following code?" Dora the coder
+                if (DistanceFromMe(otherMicrobe.GlobalTransform.origin) < swarmDetectDistance &&
+                    DistanceFromMe(otherMicrobe.GlobalTransform.origin) > swarmDistance &&
+                    (DistanceFromMe(otherMicrobe.GlobalTransform.origin) > DistanceFromMe(otherMicrobe.GlobalTransform.origin)))
+                {
+                    bestMicrobe = otherMicrobe;
+                }
+            }
+        }
+
+        return bestMicrobe;
+    }
+
+    private void Swarm(Microbe friend)
+    {
+        // Every time I need to change direction to keep up with you, I'm a little less enthusiastic to follow you more
+        swarmDistance += 10.0f;
+        microbe.LookAtPoint = friend.GlobalTransform.origin;
+        SetMoveSpeed(Constants.AI_BASE_MOVEMENT);
     }
 
     /// <summary>

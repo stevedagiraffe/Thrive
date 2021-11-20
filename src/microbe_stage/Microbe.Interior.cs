@@ -436,12 +436,13 @@ public partial class Microbe
 
     public void ExperienceLove(float magnitude)
     {
+        // The player is incapable of experiencing love
         if (ai != null)
         {
             ai.applySwarmInstinct(magnitude);
         }
     }
-    
+
     private void HandleCompoundAbsorbing(float delta)
     {
         // max here buffs compound absorbing for the smallest cells

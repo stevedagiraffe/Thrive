@@ -53,8 +53,7 @@ public class AgentProjectile : RigidBody, ITimedLife
 
         if (body is Microbe microbe)
         {
-            // If more stuff needs to be damaged we
-            // could make an IAgentDamageable interface.
+            // Toxin is poisonous to other species, but a signaling agent ot the same species
             if (microbe.Species != Properties.Species)
             {
                 microbe.GetMicrobeFromShape(bodyShape).Damage(Constants.OXYTOXY_DAMAGE * Amount, Properties.AgentType);
