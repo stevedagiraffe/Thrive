@@ -129,6 +129,9 @@ public class MicrobeAI
         }
         else
         {
+            // There is no need to engulf now
+            microbe.State = Microbe.MicrobeState.Normal;
+
             // If I'm in the mood to swarm, look for someone to swarm with
             if (swarmDetectDistance > swarmDistance)
             {
@@ -450,9 +453,6 @@ public class MicrobeAI
         // The scientifically accurate algorithm has been flipped to account for the compound
         // deposits being a lot smaller compared to the microbes
         // https://www.mit.edu/~kardar/teaching/projects/chemotaxis(AndreaSchmidt)/home.htm
-
-        // If we are still engulfing for some reason, stop
-        microbe.State = Microbe.MicrobeState.Normal;
 
         ComputeCompoundsSearchWeights();
 
