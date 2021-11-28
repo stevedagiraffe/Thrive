@@ -360,12 +360,6 @@ public class AutoEvoRun
             {
                 steps.Enqueue(new IncreaseBiodiversity(map, entry.Value, random, autoEvoConfiguration));
             }
-
-            // TODO use autoEvoConfig here
-            if (entry.Value.SpeciesInPatch.Count > Constants.AUTO_EVO_MAXIMUM_SPECIES_IN_PATCH)
-            {
-                steps.Enqueue(new ForceExtinction(entry.Value));
-            }
         }
 
         // The new populations don't depend on the mutations, this is so that when
@@ -381,6 +375,15 @@ public class AutoEvoRun
         steps.Enqueue(new RemoveInvalidMigrations(alreadyHandledSpecies));
 
         AddPlayerSpeciesPopulationChangeClampStep(steps, map, Parameters.World.PlayerSpecies);
+
+        foreach (var patch in map.Patches.Values)
+        {
+            // TODO use autoEvoConfig here
+            if (patch.SpeciesInPatch.Count > Constants.AUTO_EVO_MAXIMUM_SPECIES_IN_PATCH)
+            {
+                steps.Enqueue(new ForceExtinction(patch));
+            }
+        }
     }
 
     /// <summary>
