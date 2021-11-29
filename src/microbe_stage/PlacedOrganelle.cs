@@ -391,7 +391,7 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
     /// <summary>
     ///  Re-parents the organelle shape to the "to" microbe.
     /// </summary>
-    public void ReParentShapes(Microbe to, Vector3 offset, Vector3 masterRotation, Vector3 parentRotation)
+    public void ReParentShapes(Microbe to, Vector2 offset, Vector2 masterRotation, Vector2 parentRotation)
     {
         if (to == currentShapesParent)
             return;
@@ -404,14 +404,14 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
 
         for (int i = 0; i < shapes.Count; i++)
         {
-            Vector3 shapePosition = ShapeTruePosition(hexes[i]);
+            Vector2 shapePosition = ShapeTruePosition(hexes[i]);
             if (ParentMicrobe.Colony != null)
             {
                 // TODO: quaternion usage would be good here
                 // https://github.com/Revolutionary-Games/Thrive/issues/2504
-                shapePosition = shapePosition.Rotated(Vector3.Up, parentRotation.y);
+                shapePosition = shapePosition.Rotated(parentRotation.y);
                 if (ParentMicrobe.ColonyParent != ParentMicrobe.Colony.Master)
-                    shapePosition = shapePosition.Rotated(Vector3.Up, masterRotation.y);
+                    shapePosition = shapePosition.Rotated(masterRotation.y);
             }
 
             // Scale for bacteria physics.
@@ -419,7 +419,7 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
                 shapePosition *= 0.5f;
 
             shapePosition += offset;
-            var transform = new Transform(Quat.Identity, shapePosition);
+            var transform = new Transform(Quat.Identity, shapePosition.ToVector3());
 
             var ownerId = shapes[i];
 
@@ -477,7 +477,7 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
         growthValueDirty = true;
     }
 
-    private Vector3 ShapeTruePosition(Hex parentOffset)
+    private Vector2 ShapeTruePosition(Hex parentOffset)
     {
         return Hex.AxialToCartesian(parentOffset) + Hex.AxialToCartesian(Position);
     }
@@ -508,13 +508,13 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
 
             // The shape is in our parent so the final position is our
             // offset plus the hex offset
-            Vector3 shapePosition = ShapeTruePosition(hex);
+            Vector2 shapePosition = ShapeTruePosition(hex);
 
             // Scale for bacteria physics.
             if (ParentMicrobe.Species.IsBacteria)
                 shapePosition *= 0.5f;
 
-            var transform = new Transform(Quat.Identity, shapePosition);
+            var transform = new Transform(Quat.Identity, shapePosition.ToVector3());
             to.ShapeOwnerSetTransform(ownerId, transform);
 
             shapes.Add(ownerId);
@@ -580,7 +580,7 @@ public class PlacedOrganelle : Spatial, IPositionedOrganelle, ISaveLoadedTracked
 
         // Position the intermediate node relative to origin of cell
         var transform = new Transform(Quat.Identity,
-            Hex.AxialToCartesian(Position) + Definition.CalculateModelOffset());
+            (Hex.AxialToCartesian(Position) + Definition.CalculateModelOffset()).ToVector3());
         OrganelleGraphics.Transform = transform;
 
         // For some reason MathUtils.CreateRotationForOrganelle(Orientation) in the above transform doesn't work

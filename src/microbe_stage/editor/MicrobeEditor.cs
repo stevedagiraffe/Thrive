@@ -190,7 +190,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
     ///   Where the user started panning with the mouse
     ///   Null if the user is not panning with the mouse
     /// </summary>
-    private Vector3? mousePanningStart;
+    private Vector2? mousePanningStart;
 
     /// <summary>
     /// The Symmetry setting of the Microbe Editor.
@@ -661,7 +661,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
         if (mousePanningStart != null)
             return;
 
-        var movement = new Vector3(leftRight, 0, upDown);
+        var movement = new Vector2(leftRight, upDown);
         MoveObjectToFollow(movement.Normalized() * delta * Camera.CameraHeight);
     }
 
@@ -1143,9 +1143,10 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
     ///   Moves the ObjectToFollow of the camera in a direction
     /// </summary>
     /// <param name="vector">The direction to move the camera</param>
-    private void MoveObjectToFollow(Vector3 vector)
+    private void MoveObjectToFollow(Vector2 vector)
     {
-        cameraFollow.Translation += vector;
+        var vector3 = vector.ToVector3();
+        cameraFollow.Translation += vector3;
     }
 
     /// <summary>
@@ -1224,7 +1225,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
                 var cartesian = Hex.AxialToCartesian(absoluteHex);
 
                 // Get the min z-axis (highest point in the editor)
-                highestPointInMiddleRows = Mathf.Min(highestPointInMiddleRows, cartesian.z);
+                highestPointInMiddleRows = Mathf.Min(highestPointInMiddleRows, cartesian.y);
             }
         }
 
@@ -1496,7 +1497,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
         usedHoverHex = 0;
         usedHoverOrganelle = 0;
 
-        editorGrid.Translation = Camera.CursorWorldPos;
+        editorGrid.Translation = Camera.CursorWorldPos.ToVector3();
         editorGrid.Visible = ShowHover && !MicrobePreviewMode;
 
         // Show the organelle that is about to be placed
@@ -1586,7 +1587,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
             // Skip if there is a placed organelle here already
             foreach (var placed in placedHexes)
             {
-                if ((pos - placed.Translation).LengthSquared() < 0.001f)
+                if ((pos - placed.Translation.ToVector2()).LengthSquared() < 0.001f)
                 {
                     duplicate = true;
 
@@ -1613,7 +1614,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
             // Or if there is already a hover hex at this position
             for (int i = 0; i < usedHoverHex; ++i)
             {
-                if ((pos - hoverHexes[i].Translation).LengthSquared() < 0.001f)
+                if ((pos - hoverHexes[i].Translation.ToVector2()).LengthSquared() < 0.001f)
                 {
                     duplicate = true;
                     break;
@@ -1625,7 +1626,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
 
             var hoverHex = hoverHexes[usedHoverHex++];
 
-            hoverHex.Translation = pos;
+            hoverHex.Translation = pos.ToVector3();
             hoverHex.Visible = true;
 
             hoverHex.MaterialOverride = canPlace ? validMaterial : invalidMaterial;
@@ -1640,7 +1641,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
 
             organelleModel.Transform = new Transform(
                 MathUtils.CreateRotationForOrganelle(rotation),
-                cartesianPosition + shownOrganelle.CalculateModelOffset());
+                (cartesianPosition + shownOrganelle.CalculateModelOffset()).ToVector3());
 
             organelleModel.Scale = new Vector3(Constants.DEFAULT_HEX_SIZE, Constants.DEFAULT_HEX_SIZE,
                 Constants.DEFAULT_HEX_SIZE);
@@ -2135,7 +2136,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
                 // As we set the correct material, we don't need to remember to restore it anymore
                 hoverOverriddenMaterials.Remove(hexNode);
 
-                hexNode.Translation = pos;
+                hexNode.Translation = pos.ToVector3();
 
                 hexNode.Visible = !MicrobePreviewMode;
             }
@@ -2155,7 +2156,7 @@ public class MicrobeEditor : NodeWithInput, ILoadableGameState, IGodotEarlyNodeR
                 var organelleModel = placedModels[nextFreeOrganelle++];
 
                 organelleModel.Transform = new Transform(
-                    MathUtils.CreateRotationForOrganelle(1 * organelle.Orientation), pos);
+                    MathUtils.CreateRotationForOrganelle(1 * organelle.Orientation), pos.ToVector3());
 
                 organelleModel.Scale = new Vector3(Constants.DEFAULT_HEX_SIZE, Constants.DEFAULT_HEX_SIZE,
                     Constants.DEFAULT_HEX_SIZE);

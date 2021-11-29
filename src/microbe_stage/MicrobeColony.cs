@@ -76,7 +76,7 @@ public class MicrobeColony
 
         microbe.Colony = null;
 
-        microbe.ReParentShapes(microbe, Vector3.Zero, Master.Rotation, microbe.Rotation);
+        microbe.ReParentShapes(microbe, Vector2.Zero, Master.Rotation.ToVector2(), microbe.Rotation.ToVector2());
 
         while (microbe.ColonyChildren.Count != 0)
             RemoveFromColony(microbe.ColonyChildren[0]);

@@ -74,9 +74,6 @@ public static class Constants
 
     public const int PROCESS_OBJECTS_PER_TASK = 50;
 
-    public const int MICROBE_SPAWN_RADIUS = 170;
-    public const int CLOUD_SPAWN_RADIUS = 170;
-
     public const float STARTING_SPAWN_DENSITY = 70000.0f;
     public const float MAX_SPAWN_DENSITY = 20000.0f;
     public const float MIN_SPAWN_RADIUS_RATIO = 0.95f;
@@ -580,6 +577,8 @@ public static class Constants
 
     public const int KIBIBYTE = 1024;
     public const int MEBIBYTE = 1024 * KIBIBYTE;
+
+    public const float SECTOR_SIZE = 64f;
 
     // Following is a hacky way to ensure some conditions apply on the constants defined here.
     // When the constants don't follow a set of conditions a warning is raised, which CI treats as an error.

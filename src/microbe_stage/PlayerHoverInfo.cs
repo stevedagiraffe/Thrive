@@ -40,7 +40,7 @@ public class PlayerHoverInfo : Node
 
         foreach (Microbe microbe in allMicrobes)
         {
-            var distanceSquared = (microbe.GlobalTransform.origin - camera.CursorWorldPos).LengthSquared();
+            var distanceSquared = (microbe.GlobalTransform.origin.ToVector2() - camera.CursorWorldPos).LengthSquared();
 
             // Find only cells that have the mouse
             // position within their membrane

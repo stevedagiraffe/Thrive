@@ -74,4 +74,32 @@ public static class MathUtils
 
         return Mathf.Lerp(from, to, weight);
     }
+
+    public static int Factorial(int f)
+    {
+        if (f == 0)
+            return 1;
+
+        return f * Factorial(f - 1);
+    }
+
+    public static int NCr(int n, int r)
+    {
+        return NCr(n, Factorial(n), r);
+    }
+
+    public static int NCr(int n, int nFactorial, int r)
+    {
+        return nFactorial / (Factorial(r) * Factorial(n - r));
+    }
+
+    public static Vector3 ToVector3(this Vector2 vector, float y = 0)
+    {
+        return new Vector3(vector.x, y, vector.y);
+    }
+
+    public static Vector2 ToVector2(this Vector3 vector)
+    {
+        return new Vector2(vector.x, vector.z);
+    }
 }

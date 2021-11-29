@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 [JSONAlwaysDynamicType]
 [SceneLoadedClass("res://src/microbe_stage/Microbe.tscn", UsesEarlyResolve = false)]
 [DeserializedCallbackTarget]
-public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoadedTracked
+public class Microbe : SpawnedRigidBody, IProcessable, IMicrobeAI, ISaveLoadedTracked
 {
     /// <summary>
     ///   The stored compounds in this microbe
@@ -22,12 +22,12 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     /// <summary>
     ///   The point towards which the microbe will move to point to
     /// </summary>
-    public Vector3 LookAtPoint = new Vector3(0, 0, -1);
+    public Vector2 LookAtPoint = new Vector2(0, -1);
 
     /// <summary>
     ///   The direction the microbe wants to move. Doesn't need to be normalized
     /// </summary>
-    public Vector3 MovementDirection = new Vector3(0, 0, 0);
+    public Vector2 MovementDirection = new Vector2(0, 0);
 
     private readonly Compound atp = SimulationParameters.Instance.GetCompound("atp");
 
@@ -68,7 +68,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
 
     private bool membraneOrganellePositionsAreDirty = true;
 
-    private Vector3 queuedMovementForce;
+    private Vector2 queuedMovementForce;
 
     // variables for engulfing
     [JsonProperty]
@@ -250,7 +250,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     public float MovementFactor { get; private set; } = 1.0f;
 
     [JsonIgnore]
-    public AliveMarker AliveMarker { get; } = new AliveMarker();
+    public override AliveMarker AliveMarker { get; } = new AliveMarker();
 
     /// <summary>
     ///   The current state of the microbe. Shared across the colony
@@ -351,7 +351,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     public bool IsForPreviewOnly { get; set; }
 
     [JsonIgnore]
-    public Node EntityNode => this;
+    public override Node EntityNode => this;
 
     [JsonIgnore]
     public List<TweakedProcess> ActiveProcesses
@@ -496,8 +496,9 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
             // maybe engine bug
             if (Colony != null && this != Colony.Master)
             {
-                ReParentShapes(this, Vector3.Zero, ColonyParent.Rotation, Rotation);
-                ReParentShapes(Colony.Master, GetOffsetRelativeToMaster(), ColonyParent.Rotation, Rotation);
+                ReParentShapes(this, Vector2.Zero, ColonyParent.Rotation.ToVector2(), Rotation.ToVector2());
+                ReParentShapes(Colony.Master, GetOffsetRelativeToMaster(), ColonyParent.Rotation.ToVector2(),
+                    Rotation.ToVector2());
             }
 
             // And recompute storage
@@ -657,10 +658,12 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         props.Compound = agentType;
         props.Species = Species;
 
-        // Find the direction the microbe is facing
-        var direction = (LookAtPoint - Translation).Normalized();
+        var translation2 = Translation.ToVector2();
 
-        var position = Translation + (direction * ejectionDistance);
+        // Find the direction the microbe is facing
+        var direction = (LookAtPoint - translation2).Normalized();
+
+        var position = translation2 + (direction * ejectionDistance);
 
         SpawnHelpers.SpawnAgent(props, 10.0f, Constants.EMITTED_AGENT_LIFETIME,
             position, direction, GetStageAsParent(),
@@ -801,7 +804,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     /// <summary>
     ///   Called from movement organelles to add movement force
     /// </summary>
-    public void AddMovementForce(Vector3 force)
+    public void AddMovementForce(Vector2 force)
     {
         queuedMovementForce += force;
     }
@@ -839,7 +842,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
 
         // Reset some stuff
         State = MicrobeState.Normal;
-        MovementDirection = new Vector3(0, 0, 0);
+        MovementDirection = new Vector2(0, 0);
         LinearVelocity = new Vector3(0, 0, 0);
         allOrganellesDivided = false;
 
@@ -863,11 +866,11 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
 
             while (amount > Constants.MINIMUM_AGENT_EMISSION_AMOUNT)
             {
-                var direction = new Vector3(random.Next(0.0f, 1.0f) * 2 - 1,
-                    0, random.Next(0.0f, 1.0f) * 2 - 1);
+                var direction = new Vector2(random.Next(0.0f, 1.0f) * 2 - 1,
+                    random.Next(0.0f, 1.0f) * 2 - 1);
 
                 SpawnHelpers.SpawnAgent(props, 10.0f, Constants.EMITTED_AGENT_LIFETIME,
-                    Translation, direction, GetStageAsParent(),
+                    Translation.ToVector2(), direction, GetStageAsParent(),
                     agentScene, this);
 
                 amount -= Constants.MINIMUM_AGENT_EMISSION_AMOUNT;
@@ -913,8 +916,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
             // Amount of compound in one chunk
             float amount = HexCount / Constants.CORPSE_CHUNK_AMOUNT_DIVISOR;
 
-            var positionAdded = new Vector3(random.Next(-2.0f, 2.0f), 0,
-                random.Next(-2.0f, 2.0f));
+            var positionAdded = new Vector2(random.Next(-2.0f, 2.0f), random.Next(-2.0f, 2.0f));
 
             var chunkType = new ChunkConfiguration
             {
@@ -971,7 +973,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
             chunkType.Meshes.Add(sceneToUse);
 
             // Finally spawn a chunk with the settings
-            SpawnHelpers.SpawnChunk(chunkType, Translation + positionAdded, GetStageAsParent(),
+            SpawnHelpers.SpawnChunk(chunkType, Translation.ToVector2() + positionAdded, GetStageAsParent(),
                 chunkScene, cloudSystem, random);
         }
 
@@ -1056,10 +1058,10 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     public void ForceDivide()
     {
         // Separate the two cells.
-        var separation = new Vector3(Radius, 0, 0);
+        var separation = new Vector2(Radius, 0);
 
         // Create the one daughter cell.
-        var copyEntity = SpawnHelpers.SpawnMicrobe(Species, Translation + separation,
+        var copyEntity = SpawnHelpers.SpawnMicrobe(Species, Translation.ToVector2() + separation,
             GetParent(), SpawnHelpers.LoadMicrobeScene(), true, cloudSystem, CurrentGame);
 
         // Make it despawn like normal
@@ -1266,7 +1268,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
 
         // Movement factor is reset here. HandleEngulfing will set the right value
         MovementFactor = 1.0f;
-        queuedMovementForce = new Vector3(0, 0, 0);
+        queuedMovementForce = new Vector2(0, 0);
 
         // Reduce agent emission cooldown
         AgentEmissionCooldown -= delta;
@@ -1305,13 +1307,13 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         // Movement
         if (ColonyParent == null)
         {
-            if (MovementDirection != new Vector3(0, 0, 0) ||
-                queuedMovementForce != new Vector3(0, 0, 0))
+            if (MovementDirection != new Vector2(0, 0) ||
+                queuedMovementForce != new Vector2(0, 0))
             {
                 // Movement direction should not be normalized to allow different speeds
-                Vector3 totalMovement = new Vector3(0, 0, 0);
+                Vector2 totalMovement = new Vector2(0, 0);
 
-                if (MovementDirection != new Vector3(0, 0, 0))
+                if (MovementDirection != new Vector2(0, 0))
                 {
                     totalMovement += DoBaseMovementForce(delta);
                 }
@@ -1373,7 +1375,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         base._ExitTree();
     }
 
-    public void OnDestroyed()
+    public override void OnDestroyed()
     {
         Colony?.RemoveFromColony(this);
 
@@ -1445,7 +1447,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
             RemoveCollisionExceptionWith(microbe);
     }
 
-    internal void ReParentShapes(Microbe to, Vector3 offset, Vector3 masterRotation, Vector3 microbeRotation)
+    internal void ReParentShapes(Microbe to, Vector2 offset, Vector2 masterRotation, Vector2 microbeRotation)
     {
         // TODO: if microbeRotation is the rotation of *this* instance we should use the variable here directly
         // An object doesn't need to be told its own member variable in a method...
@@ -1467,7 +1469,8 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
                 parent = ColonyParent;
             }
 
-            ReParentShapes(Colony.Master, GetOffsetRelativeToMaster(), parent.Rotation, Rotation);
+            ReParentShapes(Colony.Master, GetOffsetRelativeToMaster(), parent.Rotation.ToVector2(),
+                Rotation.ToVector2());
         }
         else
         {
@@ -1504,10 +1507,10 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         throw new InvalidOperationException();
     }
 
-    private Vector3 GetOffsetRelativeToMaster()
+    private Vector2 GetOffsetRelativeToMaster()
     {
-        return (GlobalTransform.origin - Colony.Master.GlobalTransform.origin).Rotated(Vector3.Down,
-            Colony.Master.Rotation.y);
+        return (GlobalTransform.origin - Colony.Master.GlobalTransform.origin).ToVector2()
+            .Rotated(Colony.Master.Rotation.y);
     }
 
     private void OnIGotAddedToColony()
@@ -1520,8 +1523,8 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
 
         var newTransform = GetNewRelativeTransform();
 
-        Rotation = newTransform.rotation;
-        Translation = newTransform.translation;
+        Rotation = new Vector3(0, newTransform.rotation, 0);
+        Translation = newTransform.translation.ToVector3();
 
         ChangeNodeParent(ColonyParent);
     }
@@ -1540,13 +1543,13 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     ///   </para>
     /// </remarks>
     /// <returns>Returns relative translation and rotation</returns>
-    private (Vector3 translation, Vector3 rotation) GetNewRelativeTransform()
+    private (Vector2 translation, float rotation) GetNewRelativeTransform()
     {
         // Gets the global rotation of the parent
-        var globalParentRotation = ColonyParent.GlobalTransform.basis.GetEuler();
+        var globalParentRotation = ColonyParent.GlobalTransform.basis.GetEuler().y;
 
         // A vector from the parent to me
-        var vectorFromParent = GlobalTransform.origin - ColonyParent.GlobalTransform.origin;
+        var vectorFromParent = GlobalTransform.origin.ToVector2() - ColonyParent.GlobalTransform.origin.ToVector2();
 
         // A vector from me to the parent
         var vectorToParent = -vectorFromParent;
@@ -1555,28 +1558,28 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         // This vector represents the vectorToParent as if I had no rotation.
         // This works by rotating vectorToParent by the negative value (therefore Down) of my current rotation
         // This is important, because GetVectorTowardsNearestPointOfMembrane only works with non-rotated microbes
-        var vectorToParentWithoutRotation = vectorToParent.Rotated(Vector3.Down, Rotation.y);
+        var vectorToParentWithoutRotation = vectorToParent.Rotated(-Rotation.y);
 
         // This vector represents the vectorFromParent as if the parent had no rotation.
-        var vectorFromParentWithoutRotation = vectorFromParent.Rotated(Vector3.Down, globalParentRotation.y);
+        var vectorFromParentWithoutRotation = vectorFromParent.Rotated(-globalParentRotation);
 
         // Calculates the vector from the center of the parent's membrane towards me with canceled out rotation.
         // This gets added to the vector calculated one call before.
         var correctedVectorFromParent = ColonyParent.Membrane
             .GetVectorTowardsNearestPointOfMembrane(vectorFromParentWithoutRotation.x,
-                vectorFromParentWithoutRotation.z).Rotated(Vector3.Up, globalParentRotation.y);
+                vectorFromParentWithoutRotation.y).Rotated(globalParentRotation);
 
         // Calculates the vector from my center to my membrane towards the parent.
         // This vector gets rotated back to cancel out the rotation applied two calls above.
         // -= to negate the vector, so that the two membrane vectors amplify
         correctedVectorFromParent -= Membrane
-            .GetVectorTowardsNearestPointOfMembrane(vectorToParentWithoutRotation.x, vectorToParentWithoutRotation.z)
-            .Rotated(Vector3.Up, Rotation.y);
+            .GetVectorTowardsNearestPointOfMembrane(vectorToParentWithoutRotation.x, vectorToParentWithoutRotation.y)
+            .Rotated(Rotation.y);
 
         // Rotated because the rotational scope is different.
-        var newTranslation = correctedVectorFromParent.Rotated(Vector3.Down, globalParentRotation.y);
+        var newTranslation = correctedVectorFromParent.Rotated(globalParentRotation);
 
-        return (newTranslation, Rotation - globalParentRotation);
+        return (newTranslation, Rotation.y - globalParentRotation);
     }
 
     private void SetScaleFromSpecies()
@@ -1605,7 +1608,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         // max here buffs compound absorbing for the smallest cells
         var grabRadius = Mathf.Max(Radius, 3.0f);
 
-        cloudSystem.AbsorbCompounds(GlobalTransform.origin, grabRadius, Compounds,
+        cloudSystem.AbsorbCompounds(GlobalTransform.origin.ToVector2(), grabRadius, Compounds,
             TotalAbsorbedCompounds, delta, Membrane.Type.ResourceAbsorptionFactor);
 
         if (IsPlayerMicrobe && CheatManager.InfiniteCompounds)
@@ -2187,7 +2190,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         }
     }
 
-    private Vector3 DoBaseMovementForce(float delta)
+    private Vector2 DoBaseMovementForce(float delta)
     {
         var cost = (Constants.BASE_MOVEMENT_ATP_COST * HexCount) * delta;
 
@@ -2205,18 +2208,18 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         if (IsPlayerMicrobe)
             force *= CheatManager.Speed;
 
-        return Transform.basis.Xform(MovementDirection * force) * MovementFactor *
+        return Transform.basis.Xform((MovementDirection * force).ToVector3()).ToVector2() * MovementFactor *
             (Species.MembraneType.MovementFactor -
                 (Species.MembraneRigidity * Constants.MEMBRANE_RIGIDITY_MOBILITY_MODIFIER));
     }
 
-    private void ApplyMovementImpulse(Vector3 movement, float delta)
+    private void ApplyMovementImpulse(Vector2 movement, float delta)
     {
-        if (movement.x == 0.0f && movement.z == 0.0f)
+        if (movement.x == 0.0f && movement.y == 0.0f)
             return;
 
         // Scale movement by delta time (not by framerate). We aren't Fallout 4
-        ApplyCentralImpulse(movement * delta);
+        ApplyCentralImpulse((movement * delta).ToVector3());
     }
 
     /// <summary>
@@ -2224,7 +2227,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     /// </summary>
     private Transform GetNewPhysicsRotation(Transform transform)
     {
-        var target = transform.LookingAt(LookAtPoint, new Vector3(0, 1, 0));
+        var target = transform.LookingAt(LookAtPoint.ToVector3(), Vector3.Up);
 
         // Need to manually normalize everything, otherwise the slerp fails
         Quat slerped = transform.basis.Quat().Normalized().Slerp(
@@ -2335,7 +2338,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         foreach (var entry in organelles.Organelles)
         {
             var cartesian = Hex.AxialToCartesian(entry.Position);
-            organellePositions.Add(new Vector2(cartesian.x, cartesian.z));
+            organellePositions.Add(new Vector2(cartesian.x, cartesian.y));
         }
 
         Membrane.OrganellePositions = organellePositions;
@@ -2375,11 +2378,11 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
     /// <summary>
     ///   Calculates a world pos for emitting compounds
     /// </summary>
-    private Vector3 CalculateNearbyWorldPosition()
+    private Vector2 CalculateNearbyWorldPosition()
     {
         // The back of the microbe
         var exit = Hex.AxialToCartesian(new Hex(0, 1));
-        var membraneCoords = Membrane.GetVectorTowardsNearestPointOfMembrane(exit.x, exit.z);
+        var membraneCoords = Membrane.GetVectorTowardsNearestPointOfMembrane(exit.x, exit.y);
 
         // Get the distance to eject the compounds
         var ejectionDistance = Membrane.EncompassingCircleRadius;
@@ -2406,10 +2409,10 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         var s = Mathf.Sin(finalAngle / 180 * Mathf.Pi);
         var c = Mathf.Cos(finalAngle / 180 * Mathf.Pi);
 
-        var ejectionDirection = new Vector3(-membraneCoords.x * c + membraneCoords.z * s, 0,
-            membraneCoords.x * s + membraneCoords.z * c);
+        var ejectionDirection = new Vector2(-membraneCoords.x * c + membraneCoords.y * s,
+            membraneCoords.x * s + membraneCoords.y * c);
 
-        return Translation + (ejectionDirection * ejectionDistance);
+        return Translation.ToVector2() + (ejectionDirection * ejectionDistance);
     }
 
     private void ChangeNodeParent(Microbe parent)
@@ -2586,7 +2589,7 @@ public class Microbe : RigidBody, ISpawned, IProcessable, IMicrobeAI, ISaveLoade
         touchedMicrobes.Remove(other);
         other.touchedMicrobes.Remove(this);
 
-        other.MovementDirection = Vector3.Zero;
+        other.MovementDirection = Vector2.Zero;
 
         // Create a colony if there isn't one yet
         if (Colony == null)

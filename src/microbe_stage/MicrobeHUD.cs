@@ -670,7 +670,7 @@ public class MicrobeHUD : Node
         if (showMouseCoordinates)
         {
             mousePosLabel.Text = string.Format(CultureInfo.CurrentCulture, TranslationServer.Translate("STUFF_AT"),
-                stage.Camera.CursorWorldPos.x, stage.Camera.CursorWorldPos.z) + "\n";
+                stage.Camera.CursorWorldPos.x, stage.Camera.CursorWorldPos.y) + "\n";
         }
 
         if (stage.HoverInfo.HoveredCompounds.Count == 0)
