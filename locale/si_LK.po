@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-24 14:14+0300\n"
+"POT-Creation-Date: 2021-11-29 19:23+0100\n"
 "PO-Revision-Date: 2021-09-28 07:32+0000\n"
 "Last-Translator: helabasa <R45XvezA@pm.me>\n"
 "Language-Team: Sinhala <https://translate.revolutionarygamesstudio.com/"
@@ -540,36 +540,36 @@ msgid "ATP"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:17
-#: ../src/microbe_stage/MicrobeStage.tscn:1272
+#: ../src/microbe_stage/MicrobeStage.tscn:1271
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3042
 msgid "AMMONIA"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:31
-#: ../src/microbe_stage/MicrobeStage.tscn:1326
+#: ../src/microbe_stage/MicrobeStage.tscn:1325
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3113
 msgid "PHOSPHATE"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:45
-#: ../src/microbe_stage/MicrobeStage.tscn:1380
+#: ../src/microbe_stage/MicrobeStage.tscn:1379
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3007
 msgid "HYDROGEN_SULFIDE"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:59
-#: ../src/microbe_stage/MicrobeStage.tscn:1218
+#: ../src/microbe_stage/MicrobeStage.tscn:1217
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3077
 msgid "GLUCOSE"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:73
-#: ../src/microbe_stage/MicrobeStage.tscn:1566
+#: ../src/microbe_stage/MicrobeStage.tscn:1565
 msgid "OXYTOXY_NT"
 msgstr ""
 
 #: ../simulation_parameters/microbe_stage/compounds.json:87
-#: ../src/microbe_stage/MicrobeStage.tscn:1434
+#: ../src/microbe_stage/MicrobeStage.tscn:1433
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3148
 msgid "IRON"
 msgstr ""
@@ -2178,24 +2178,28 @@ msgstr ""
 msgid "ESCAPE_ENGULFING"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:39
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:41
 msgid "INFINITE_COMPOUNDS"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:49
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:51
 msgid "GODMODE"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:59
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:61
 msgid "NO_AI"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:76
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:78
 msgid "PLAYER_SPEED"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:97
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:99
 msgid "PLAYER_DUPLICATE"
+msgstr ""
+
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:109
+msgid "GENERATE_SPAWN_MAP"
 msgstr ""
 
 #: ../src/microbe_stage/MicrobeHUD.cs:672
@@ -2206,11 +2210,11 @@ msgstr ""
 msgid "PLAYER_CELL"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.cs:489
+#: ../src/microbe_stage/MicrobeStage.cs:492
 msgid "PLAYER_REPRODUCED"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.cs:610
+#: ../src/microbe_stage/MicrobeStage.cs:613
 msgid "PLAYER_DIED"
 msgstr ""
 
@@ -2230,34 +2234,34 @@ msgstr ""
 msgid "SPECIES_COLON"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:659
+#: ../src/microbe_stage/MicrobeStage.tscn:658
 msgid "ENVIRONMENT"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:926
+#: ../src/microbe_stage/MicrobeStage.tscn:925
 msgid "TEMPERATURE_SHORT"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:982
+#: ../src/microbe_stage/MicrobeStage.tscn:981
 msgid "LIGHT"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1037
+#: ../src/microbe_stage/MicrobeStage.tscn:1036
 msgid "PRESSURE_SHORT"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1120
+#: ../src/microbe_stage/MicrobeStage.tscn:1119
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:2331
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:2967
 #: ../src/microbe_stage/editor/MicrobeEditorGUI.cs:852
 msgid "COMPOUNDS"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1504
+#: ../src/microbe_stage/MicrobeStage.tscn:1503
 msgid "AGENTS"
 msgstr ""
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1756
+#: ../src/microbe_stage/MicrobeStage.tscn:1755
 msgid "POPULATION_CAPITAL"
 msgstr ""
 
@@ -2502,6 +2506,21 @@ msgstr ""
 msgid "MOVE_TO_THIS_PATCH"
 msgstr ""
 
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:292
+msgid "MOVE"
+msgstr ""
+
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:227
+msgid "DELETE"
+msgstr ""
+
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:359
+msgid "MODIFY"
+msgstr ""
+
 #: ../src/microbe_stage/editor/MicrobeEditorCheatMenu.tscn:25
 msgid "INFINITE_MP"
 msgstr ""
@@ -2572,18 +2591,6 @@ msgstr ""
 #: ../src/microbe_stage/editor/OrganellePopupMenu.cs:207
 #: ../src/microbe_stage/editor/OrganellePopupMenu.cs:226
 msgid "MP_COST"
-msgstr ""
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:227
-msgid "DELETE"
-msgstr ""
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:292
-msgid "MOVE"
-msgstr ""
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:359
-msgid "MODIFY"
 msgstr ""
 
 #: ../src/microbe_stage/gui/ExtinctionBox.tscn:55

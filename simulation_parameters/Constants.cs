@@ -550,6 +550,8 @@ public static class Constants
     public const string LOGS_FOLDER_NAME = "logs";
     public const string LOGS_FOLDER = "user://" + LOGS_FOLDER_NAME;
 
+    public const string GENERATE_SPAWN_SYSTEM_NOISE_IMAGE_PATH = "user://spawn_system_noise.bmp";
+
     /// <summary>
     ///   Internal Godot name for the default audio output device
     /// </summary>

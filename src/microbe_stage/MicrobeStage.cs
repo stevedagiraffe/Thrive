@@ -74,6 +74,9 @@ public class MicrobeStage : NodeWithInput, ILoadableGameState, IGodotEarlyNodeRe
     public CompoundCloudSystem Clouds { get; private set; }
 
     [JsonIgnore]
+    public SpawnSystem Spawner => spawner;
+
+    [JsonIgnore]
     public FluidSystem FluidSystem { get; private set; }
 
     [JsonIgnore]
@@ -234,7 +237,7 @@ public class MicrobeStage : NodeWithInput, ILoadableGameState, IGodotEarlyNodeRe
         microbeAISystem = new MicrobeAISystem(rootOfDynamicallySpawned);
         FluidSystem = new FluidSystem(rootOfDynamicallySpawned);
         spawner = new SpawnSystem(rootOfDynamicallySpawned);
-        patchManager = new PatchManager(spawner, ProcessSystem, Clouds, TimedLifeSystem,
+        patchManager = new PatchManager(Spawner, ProcessSystem, Clouds, TimedLifeSystem,
             worldLight, CurrentGame);
 
         NodeReferencesResolved = true;
@@ -254,7 +257,7 @@ public class MicrobeStage : NodeWithInput, ILoadableGameState, IGodotEarlyNodeRe
 
         if (!IsLoadedFromSave)
         {
-            spawner.Init();
+            Spawner.Init();
 
             if (CurrentGame == null)
             {
@@ -377,7 +380,7 @@ public class MicrobeStage : NodeWithInput, ILoadableGameState, IGodotEarlyNodeRe
 
         if (Player != null)
         {
-            spawner.Process(delta, Player.Translation, Player.Rotation);
+            Spawner.Process(delta, Player.Translation, Player.Rotation);
             Clouds.ReportPlayerPosition(Player.Translation);
 
             TutorialState.SendEvent(TutorialEventType.MicrobePlayerOrientation,

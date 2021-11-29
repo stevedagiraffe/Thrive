@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-24 14:14+0300\n"
+"POT-Creation-Date: 2021-11-29 19:23+0100\n"
 "PO-Revision-Date: 2021-09-28 07:32+0000\n"
 "Last-Translator: Nathaniel Balderramas <nabm.utn@gmail.com>\n"
 "Language-Team: Spanish <https://translate.revolutionarygamesstudio.com/"
@@ -24,14 +24,13 @@ msgstr ""
 #: ../simulation_parameters/common/help_texts.json:85
 msgid "MICROBE_STAGE_HELP_MESSAGE_1"
 msgstr ""
-"Usa [thrive:input]g_move_forward[/thrive:input], "
-"[thrive:input]g_move_left[/thrive:input], "
-"[thrive:input]g_move_backwards[/thrive:input], "
-"[thrive:input]g_move_right[/thrive:input] y el ratón para mover tu célula. "
-"[thrive:input]g_fire_toxin[/thrive:input] para disparar [thrive:compound "
-"type=\"oxytoxy\"][/thrive:compound] si tienes una vacuola de toxinas. "
-"[thrive:input]g_toggle_engulf[/thrive:input] para activar/desactivar el modo "
-"engullir."
+"Usa [thrive:input]g_move_forward[/thrive:input], [thrive:"
+"input]g_move_left[/thrive:input], [thrive:input]g_move_backwards[/thrive:"
+"input], [thrive:input]g_move_right[/thrive:input] y el ratón para mover tu "
+"célula. [thrive:input]g_fire_toxin[/thrive:input] para disparar [thrive:"
+"compound type=\"oxytoxy\"][/thrive:compound] si tienes una vacuola de "
+"toxinas. [thrive:input]g_toggle_engulf[/thrive:input] para activar/"
+"desactivar el modo engullir."
 
 #: ../simulation_parameters/common/help_texts.json:10
 #: ../simulation_parameters/common/help_texts.json:88
@@ -45,29 +44,30 @@ msgstr ""
 msgid "MICROBE_STAGE_HELP_MESSAGE_3"
 msgstr ""
 "Para desbloquear el editor y reproducir tu célula, necesitas "
-"conseguir[thrive:compound type=\"ammonia\"][/thrive:compound] (Nube Naranja) "
-"y [thrive:compound type=\"phosphates\"][/thrive:compound] (Nube Púrpura)."
+"conseguir[thrive:compound type=\"ammonia\"][/thrive:compound] (Nube "
+"Naranja) y [thrive:compound type=\"phosphates\"][/thrive:compound] (Nube "
+"Púrpura)."
 
 #: ../simulation_parameters/common/help_texts.json:18
 #: ../simulation_parameters/common/help_texts.json:94
 msgid "MICROBE_STAGE_HELP_MESSAGE_4"
 msgstr ""
 "También puedes engullir células, bacterias, pedazos de hierro y pedazos de "
-"células que sean más pequeños que tu célula al presionar "
-"[thrive:input]g_toggle_engulf[/thrive:input]. Esto aumentara tu costo de "
-"[thrive:compound type=\"atp\"][/thrive:compound] y también ralentizará tu "
-"célula. No te olvides de presionar nuevamente "
-"[thrive:input]g_toggle_engulf[/thrive:input] para dejar de engullir."
+"células que sean más pequeños que tu célula al presionar [thrive:"
+"input]g_toggle_engulf[/thrive:input]. Esto aumentara tu costo de [thrive:"
+"compound type=\"atp\"][/thrive:compound] y también ralentizará tu célula. "
+"No te olvides de presionar nuevamente [thrive:input]g_toggle_engulf[/"
+"thrive:input] para dejar de engullir."
 
 #: ../simulation_parameters/common/help_texts.json:22
 #: ../simulation_parameters/common/help_texts.json:97
 msgid "MICROBE_STAGE_HELP_MESSAGE_5"
 msgstr ""
-"La Osmorregulación cuesta [thrive:compound type=\"atp\"][/thrive:compound], "
-"lo que significa que cuan más grande es la célula, más Mitocondrias, "
-"Metabolosomas, Rusticianinas, u orgánulos que puedan realizar glicólisis "
-"necesitarás, para evitar perder[thrive:compound type=\"atp\""
-"][/thrive:compound] cuando esté estática."
+"La Osmorregulación cuesta [thrive:compound type=\"atp\"][/thrive:"
+"compound], lo que significa que cuan más grande es la célula, más "
+"Mitocondrias, Metabolosomas, Rusticianinas, u orgánulos que puedan "
+"realizar glicólisis necesitarás, para evitar perder[thrive:compound type="
+"\"atp\"][/thrive:compound] cuando esté estática."
 
 #: ../simulation_parameters/common/help_texts.json:26
 #: ../simulation_parameters/common/help_texts.json:100
@@ -87,8 +87,8 @@ msgstr ""
 "Púrpura – [thrive:compound type=\"phosphates\"][/thrive:compound]\n"
 "Rojo Oscuro – [thrive:compound type=\"iron\"][/thrive:compound]\n"
 "\n"
-"La [thrive:compound type=\"glucose\"][/thrive:compound] se usa para generar "
-"[thrive:compound type=\"atp\"][/thrive:compound]"
+"La [thrive:compound type=\"glucose\"][/thrive:compound] se usa para "
+"generar [thrive:compound type=\"atp\"][/thrive:compound]"
 
 #: ../simulation_parameters/common/help_texts.json:34
 #: ../simulation_parameters/common/help_texts.json:106
@@ -96,16 +96,16 @@ msgid "MICROBE_STAGE_HELP_MESSAGE_9"
 msgstr ""
 "El [thrive:compound type=\"hydrogensulfide\"][/thrive:compound] puede ser "
 "convertido a [thrive:compound type=\"glucose\"] con quimioplastos y "
-"proteínas quimiosintetizadoras. El [thrive:compound type=\"iron\""
-"][/thrive:compound] puede ser convertido a [thrive:compound type=\"atp\""
-"][/thrive:compound] con rusticianinas."
+"proteínas quimiosintetizadoras. El [thrive:compound type=\"iron\"][/thrive:"
+"compound] puede ser convertido a [thrive:compound type=\"atp\"][/thrive:"
+"compound] con rusticianinas."
 
 #: ../simulation_parameters/common/help_texts.json:38
 #: ../simulation_parameters/common/help_texts.json:109
 msgid "MICROBE_STAGE_HELP_MESSAGE_10"
 msgstr ""
-"Para que la célula se reproduzca, necesita dividir cada uno de sus orgánulos "
-"en dos. Para eso, se necesita Amoníaco y Fosfato."
+"Para que la célula se reproduzca, necesita dividir cada uno de sus "
+"orgánulos en dos. Para eso, se necesita Amoníaco y Fosfato."
 
 #: ../simulation_parameters/common/help_texts.json:42
 #: ../simulation_parameters/common/help_texts.json:103
@@ -131,14 +131,14 @@ msgid "MICROBE_STAGE_HELP_MESSAGE_13"
 msgstr ""
 "Al ligarte con otras células puedes crear una colonia. Las células de una "
 "colonia comparten entre sí todos los compuestos que absorben y producen. "
-"Para poder ligarte con otras células necesitas adquirir el orgánulo \"agente "
-"ligante\", activar el modo ligante y acercarte a otra célula. Por ahora solo "
-"puedes ligarte con otras células de tu misma especie. Mientras formas parte "
-"de una colonia no podrás dividir tu célula para entrar al editor (por ahora)"
-". Una vez que hayas adquirido suficientes compuestos para reproducirte "
-"tendrás que abandonar la colonia para poder entrar al editor. Grandes "
-"colonias celulares son el camino hacia la multicelularidad (aún no "
-"disponible en el juego)."
+"Para poder ligarte con otras células necesitas adquirir el orgánulo "
+"\"agente ligante\", activar el modo ligante y acercarte a otra célula. Por "
+"ahora solo puedes ligarte con otras células de tu misma especie. Mientras "
+"formas parte de una colonia no podrás dividir tu célula para entrar al "
+"editor (por ahora). Una vez que hayas adquirido suficientes compuestos "
+"para reproducirte tendrás que abandonar la colonia para poder entrar al "
+"editor. Grandes colonias celulares son el camino hacia la multicelularidad "
+"(aún no disponible en el juego)."
 
 #: ../simulation_parameters/common/help_texts.json:62
 msgid "MICROBE_EDITOR_HELP_MESSAGE_1"
@@ -157,15 +157,15 @@ msgstr ""
 "\"glucose\"][/thrive:compound] de los cloroplastos, pero también realizan "
 "glicólisis y solo ocupan un espacio.\n"
 "\n"
-"Rusticianina: Convierte el [thrive:compound type=\"iron\"][/thrive:compound] "
-"en [thrive:compound type=\"atp\"][/thrive:compound]\n"
+"Rusticianina: Convierte el [thrive:compound type=\"iron\"][/thrive:"
+"compound] en [thrive:compound type=\"atp\"][/thrive:compound]\n"
 "\n"
-"Nitrogenasa: Convierte el nitrógeno atmosférico y [thrive:compound type=\"atp"
-"\"][/thrive:compound] en [thrive:compound type=\"ammonia\"], "
+"Nitrogenasa: Convierte el nitrógeno atmosférico y [thrive:compound type="
+"\"atp\"][/thrive:compound] en [thrive:compound type=\"ammonia\"], "
 "anaerobicamente\n"
 "\n"
-"Citoplasma: Tiene espacio para almacenar compuestos, y realiza glicólisis ("
-"produce [thrive:compound type=\"atp\"][/thrive:compound] en pequeñas "
+"Citoplasma: Tiene espacio para almacenar compuestos, y realiza glicólisis "
+"(produce [thrive:compound type=\"atp\"][/thrive:compound] en pequeñas "
 "cantidades)"
 
 #: ../simulation_parameters/common/help_texts.json:66
@@ -173,8 +173,8 @@ msgid "MICROBE_EDITOR_HELP_MESSAGE_2"
 msgstr ""
 "Orgánulos Externos\n"
 "\n"
-"Flagelos: Mueve tu célula más rápidamente consumiendo [thrive:compound type="
-"\"atp\"][/thrive:compound]\n"
+"Flagelos: Mueve tu célula más rápidamente consumiendo [thrive:compound "
+"type=\"atp\"][/thrive:compound]\n"
 "\n"
 "Pilus: Puede usarse para atacar a otras células"
 
@@ -192,31 +192,32 @@ msgstr ""
 "consume [thrive:compound type=\"glucose\"][/thrive:compound y O2 "
 "atmosférico. Son mucho más eficientes que el citoplasma\n"
 "\n"
-"Cloroplasto: Sintetiza [thrive:compound type=\"glucose\"][/thrive:compound] "
-"utilizando la luz solar y CO2 atmosférico\n"
+"Cloroplasto: Sintetiza [thrive:compound type=\"glucose\"][/thrive:"
+"compound] utilizando la luz solar y CO2 atmosférico\n"
 "\n"
-"Quimioplasto: Sintetiza [thrive:compound type=\"glucose\"][/thrive:compound] "
-"consumiendo[thrive:compound type=\"hydrogensulfide\"][/thrive:compound]\n"
+"Quimioplasto: Sintetiza [thrive:compound type=\"glucose\"][/thrive:"
+"compound] consumiendo[thrive:compound type=\"hydrogensulfide\"][/thrive:"
+"compound]\n"
 "\n"
-"Nitroplasto: Sintetiza [thrive:compound type=\"ammonia\"][/thrive:compound] "
-"consumiendo [thrive:compound type=\"atp\"][/thrive:compound], Nitrógeno "
-"atmosférico y Oxígeno atmosférico\n"
+"Nitroplasto: Sintetiza [thrive:compound type=\"ammonia\"][/thrive:"
+"compound] consumiendo [thrive:compound type=\"atp\"][/thrive:compound], "
+"Nitrógeno atmosférico y Oxígeno atmosférico\n"
 "\n"
 "Vacuola: Aumenta el espacio de almacenamiento en +15\n"
 "\n"
-"Vacuola de Toxinas: Produce toxinas (llamadas [thrive:compound type=\"oxytoxy"
-"\"][/thrive:compound])"
+"Vacuola de Toxinas: Produce toxinas (llamadas [thrive:compound type="
+"\"oxytoxy\"][/thrive:compound])"
 
 #: ../simulation_parameters/common/help_texts.json:74
 msgid "MICROBE_EDITOR_HELP_MESSAGE_4"
 msgstr ""
 "En cada generación tienes 100 puntos de mutación (PM) para gastar, y cada "
 "cambio (o mutación) costará determinada cantidad de PM. Añadir y quitar "
-"orgánulos cuesta PM. Sin embargo, quitar orgánulos que fueron añadidos en la "
-"misma sesión reembolsa PM acorde a su precio. Para mover o quitar un "
-"orgánulo, haz clic derecho y selecciona la acción adecuada. Puedes rotar los "
-"orgánulos antes de colocarlos con [thrive:input]e_rotate_left[/thrive:input] "
-"y [thrive:input]e_rotate_right[/thrive:input]."
+"orgánulos cuesta PM. Sin embargo, quitar orgánulos que fueron añadidos en "
+"la misma sesión reembolsa PM acorde a su precio. Para mover o quitar un "
+"orgánulo, haz clic derecho y selecciona la acción adecuada. Puedes rotar "
+"los orgánulos antes de colocarlos con [thrive:input]e_rotate_left[/thrive:"
+"input] y [thrive:input]e_rotate_right[/thrive:input]."
 
 #: ../simulation_parameters/common/help_texts.json:78
 msgid "MICROBE_EDITOR_HELP_MESSAGE_5"
@@ -721,36 +722,36 @@ msgid "ATP"
 msgstr "ATP"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:17
-#: ../src/microbe_stage/MicrobeStage.tscn:1272
+#: ../src/microbe_stage/MicrobeStage.tscn:1271
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3042
 msgid "AMMONIA"
 msgstr "Amoníaco"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:31
-#: ../src/microbe_stage/MicrobeStage.tscn:1326
+#: ../src/microbe_stage/MicrobeStage.tscn:1325
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3113
 msgid "PHOSPHATE"
 msgstr "Fosfato"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:45
-#: ../src/microbe_stage/MicrobeStage.tscn:1380
+#: ../src/microbe_stage/MicrobeStage.tscn:1379
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3007
 msgid "HYDROGEN_SULFIDE"
 msgstr "Sulfuro de Hidrógeno"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:59
-#: ../src/microbe_stage/MicrobeStage.tscn:1218
+#: ../src/microbe_stage/MicrobeStage.tscn:1217
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3077
 msgid "GLUCOSE"
 msgstr "Glucosa"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:73
-#: ../src/microbe_stage/MicrobeStage.tscn:1566
+#: ../src/microbe_stage/MicrobeStage.tscn:1565
 msgid "OXYTOXY_NT"
 msgstr "OxiToxi NT"
 
 #: ../simulation_parameters/microbe_stage/compounds.json:87
-#: ../src/microbe_stage/MicrobeStage.tscn:1434
+#: ../src/microbe_stage/MicrobeStage.tscn:1433
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:3148
 msgid "IRON"
 msgstr "Hierro"
@@ -2207,8 +2208,8 @@ msgid "RUSTICYANIN_PROCESSES_DESCRIPTION"
 msgstr ""
 "Convierte [thrive:compound type=\"iron\"][/thrive:compound] en [thrive:"
 "compound type=\"atp\"][/thrive:compound]. La velocidad es directamente "
-"proporcional a la concentración de [thrive:compound type=\"carbondioxide\""
-"][/thrive:compound] y [thrive:compound type=\"oxygen\"][/thrive:compound]"
+"proporcional a la concentración de [thrive:compound type=\"carbondioxide\"]"
+"[/thrive:compound] y [thrive:compound type=\"oxygen\"][/thrive:compound]"
 
 #: ../src/gui_common/tooltip/ToolTipManager.tscn:618
 msgid "RUSTICYANIN_DESCRIPTION"
@@ -2602,28 +2603,32 @@ msgstr "Produce"
 msgid "ESCAPE_ENGULFING"
 msgstr "Engullición evadida"
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:39
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:41
 #, fuzzy
 msgid "INFINITE_COMPOUNDS"
 msgstr "Compuestos"
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:49
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:51
 msgid "GODMODE"
 msgstr "Modo Dios"
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:59
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:61
 msgid "NO_AI"
 msgstr "Sin IA"
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:76
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:78
 #, fuzzy
 msgid "PLAYER_SPEED"
 msgstr "El jugador murió"
 
-#: ../src/microbe_stage/MicrobeCheatMenu.tscn:97
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:99
 #, fuzzy
 msgid "PLAYER_DUPLICATE"
 msgstr "El jugador murió"
+
+#: ../src/microbe_stage/MicrobeCheatMenu.tscn:109
+msgid "GENERATE_SPAWN_MAP"
+msgstr ""
 
 #: ../src/microbe_stage/MicrobeHUD.cs:672
 msgid "STUFF_AT"
@@ -2634,11 +2639,11 @@ msgstr "Objetos en {0:F1}, {1:F1}:"
 msgid "PLAYER_CELL"
 msgstr "El jugador murió"
 
-#: ../src/microbe_stage/MicrobeStage.cs:489
+#: ../src/microbe_stage/MicrobeStage.cs:492
 msgid "PLAYER_REPRODUCED"
 msgstr "El jugador se reprodujo"
 
-#: ../src/microbe_stage/MicrobeStage.cs:610
+#: ../src/microbe_stage/MicrobeStage.cs:613
 msgid "PLAYER_DIED"
 msgstr "El jugador murió"
 
@@ -2658,34 +2663,34 @@ msgstr "Compuestos:"
 msgid "SPECIES_COLON"
 msgstr "Especies:"
 
-#: ../src/microbe_stage/MicrobeStage.tscn:659
+#: ../src/microbe_stage/MicrobeStage.tscn:658
 msgid "ENVIRONMENT"
 msgstr "Ambiente"
 
-#: ../src/microbe_stage/MicrobeStage.tscn:926
+#: ../src/microbe_stage/MicrobeStage.tscn:925
 msgid "TEMPERATURE_SHORT"
 msgstr "Temp."
 
-#: ../src/microbe_stage/MicrobeStage.tscn:982
+#: ../src/microbe_stage/MicrobeStage.tscn:981
 msgid "LIGHT"
 msgstr "la luz solar"
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1037
+#: ../src/microbe_stage/MicrobeStage.tscn:1036
 msgid "PRESSURE_SHORT"
 msgstr "Pres."
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1120
+#: ../src/microbe_stage/MicrobeStage.tscn:1119
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:2331
 #: ../src/microbe_stage/editor/MicrobeEditor.tscn:2967
 #: ../src/microbe_stage/editor/MicrobeEditorGUI.cs:852
 msgid "COMPOUNDS"
 msgstr "Compuestos"
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1504
+#: ../src/microbe_stage/MicrobeStage.tscn:1503
 msgid "AGENTS"
 msgstr "Agentes"
 
-#: ../src/microbe_stage/MicrobeStage.tscn:1756
+#: ../src/microbe_stage/MicrobeStage.tscn:1755
 msgid "POPULATION_CAPITAL"
 msgstr "POBLACIÓN:"
 
@@ -2941,6 +2946,24 @@ msgstr "Especies Presentes"
 msgid "MOVE_TO_THIS_PATCH"
 msgstr "Moverse a esta región"
 
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:292
+#, fuzzy
+msgid "MOVE"
+msgstr "Movimiento Base"
+
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:227
+#, fuzzy
+msgid "DELETE"
+msgstr "Eliminar"
+
+#: ../src/microbe_stage/editor/MicrobeEditor.tscn:3418
+#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:359
+#, fuzzy
+msgid "MODIFY"
+msgstr "Modificar"
+
 #: ../src/microbe_stage/editor/MicrobeEditorCheatMenu.tscn:25
 msgid "INFINITE_MP"
 msgstr ""
@@ -3016,21 +3039,6 @@ msgstr "{0} con población: {1}"
 #: ../src/microbe_stage/editor/OrganellePopupMenu.cs:226
 msgid "MP_COST"
 msgstr ""
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:227
-#, fuzzy
-msgid "DELETE"
-msgstr "Eliminar"
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:292
-#, fuzzy
-msgid "MOVE"
-msgstr "Movimiento Base"
-
-#: ../src/microbe_stage/editor/OrganellePopupMenu.tscn:359
-#, fuzzy
-msgid "MODIFY"
-msgstr "Modificar"
 
 #: ../src/microbe_stage/gui/ExtinctionBox.tscn:55
 msgid "EXTINCTION_CAPITAL"

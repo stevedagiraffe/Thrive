@@ -20,11 +20,23 @@ public class MicrobeCheatMenu : CheatMenu
     [Export]
     public NodePath PlayerDividePath;
 
+    [Export]
+    public NodePath GenerateSpawnMapPath;
+
+    [Export]
+    public NodePath CurrentSectorPath;
+
+    [Export]
+    public NodePath MicrobeStagePath;
+
     private CheckBox infiniteCompounds;
     private CheckBox godMode;
     private CheckBox disableAI;
     private Slider speed;
     private Button playerDivide;
+    private Button generateSpawnMap;
+    private Label currentSector;
+    private MicrobeStage microbeStage;
 
     public override void _Ready()
     {
@@ -33,9 +45,19 @@ public class MicrobeCheatMenu : CheatMenu
         disableAI = GetNode<CheckBox>(DisableAIPath);
         speed = GetNode<Slider>(SpeedSliderPath);
         playerDivide = GetNode<Button>(PlayerDividePath);
+        generateSpawnMap = GetNode<Button>(GenerateSpawnMapPath);
+        currentSector = GetNode<Label>(CurrentSectorPath);
+        microbeStage = GetNode<MicrobeStage>(MicrobeStagePath);
 
         playerDivide.Connect("pressed", this, nameof(OnPlayerDivideClicked));
+        generateSpawnMap.Connect("pressed", this, nameof(OnGenerateMapClicked));
         base._Ready();
+    }
+
+    public override void _Process(float delta)
+    {
+        currentSector.Text = microbeStage.Spawner.CurrentSector.ToString();
+        base._Process(delta);
     }
 
     public override void ReloadGUI()
@@ -49,5 +71,10 @@ public class MicrobeCheatMenu : CheatMenu
     private void OnPlayerDivideClicked()
     {
         CheatManager.PlayerDuplication();
+    }
+
+    private void OnGenerateMapClicked()
+    {
+        microbeStage.Spawner.GenerateNoiseImage();
     }
 }
